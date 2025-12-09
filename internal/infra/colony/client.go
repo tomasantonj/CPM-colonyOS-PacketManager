@@ -2,18 +2,24 @@ package colony
 
 import "fmt"
 
-type MockColonyClient struct{}
-
-func NewMockColonyClient() *MockColonyClient {
-	return &MockColonyClient{}
+type ColonyClient struct {
+	sdk ColonySDK
 }
 
-func (c *MockColonyClient) SubmitWorkflow(specJSON []byte) error {
-	fmt.Printf("[ColonyOS] Submitting Workflow:\n%s\n", string(specJSON))
-	return nil
+func NewColonyClient(sdk ColonySDK) *ColonyClient {
+	return &ColonyClient{
+		sdk: sdk,
+	}
 }
 
-func (c *MockColonyClient) RegisterFunction(specJSON []byte) error {
-	fmt.Printf("[ColonyOS] Registering Function:\n%s\n", string(specJSON))
+func (c *ColonyClient) SubmitWorkflow(specJSON []byte) error {
+	// Here we would handle specific ColonyOS logic if needed (e.g. wrapping response)
+	// For now, just pass through to SDK
+	return c.sdk.SubmitWorkflow(specJSON)
+}
+
+func (c *ColonyClient) RegisterFunction(specJSON []byte) error {
+	// Not supported in SDK interface yet, stubbing
+	fmt.Printf("[ColonyClient] Registering function not implemented in SDK yet.\n")
 	return nil
 }

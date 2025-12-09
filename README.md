@@ -54,6 +54,37 @@ You can override default values in `values.yaml` using the `--set` flag:
 ./cpm install my-package-0.1.0.cpm --set replicas=5 --set name="production-job"
 ```
 
+### 4. List Installed Packages
+View currently installed packages and their status:
+
+```bash
+./cpm list
+```
+
+### 5. Uninstall a Package
+Remove a package from the local state (and ColonyOS):
+
+```bash
+./cpm uninstall my-package
+```
+
+## Configuration
+
+### State Directory (`CPM_HOME`)
+By default, CPM stores state in `~/.cpm`. You can override this using the `CPM_HOME` environment variable, which is useful for project-local state.
+
+**PowerShell:**
+```powershell
+$env:CPM_HOME=".\.cpm"
+./cpm install ...
+```
+
+**Bash:**
+```bash
+export CPM_HOME=./.cpm
+./cpm install ...
+```
+
 ## Package Requirements
 
 A valid CPM package must contain:
