@@ -43,6 +43,12 @@ This generates a file named `{name}-{version}.cpm` (e.g., `my-package-0.1.0.cpm`
 ### 3. Install a Package
 Submit a package to ColonyOS. You can install from a local file or from the configured registry.
 
+**Authentication:**
+To submit workflows to a real ColonyOS server, you must provide credentials:
+```bash
+./cpm install my-package --colonyid <ID> --prvkey <HEX_KEY> --host <HOST> --port <PORT>
+```
+
 **From Local File:**
 ```bash
 ./cpm install my-package-0.1.0.cpm
@@ -92,7 +98,9 @@ Remove a package from the local state (and ColonyOS):
 ## Configuration
 
 ### State Directory (`CPM_HOME`)
-By default, CPM stores state in `~/.cpm`. You can override this using the `CPM_HOME` environment variable, which is useful for project-local state.
+By default, CPM stores state in `~/.cpm`. You can override this using the `CPM_HOME` environment variable.
+- **Registry**: stored in `$CPM_HOME/registry` (currently a local directory mock).
+- **Installed State**: stored in `$CPM_HOME/state.json`.
 
 **PowerShell:**
 ```powershell
@@ -126,9 +134,9 @@ A valid CPM package must contain:
     image: ubuntu:latest
     ```
 
-3.  **`templates/`**: Directory containing Go templates (usually JSON or YAML).
+3.  **`templates/`**: Directory containing Go templates (`.json`, `.yaml`, `.tpl`).
     Files in this directory are rendered using the values from `values.yaml` (and CLI overrides).
-    
+
     *Example `templates/workflow.json`:*
     ```json
     {
@@ -136,3 +144,20 @@ A valid CPM package must contain:
       "replicas": {{ .Values.replicas }}
     }
     ```
+
+## Advanced Templating
+
+CPM uses the Go template engine extended with **Sprig** functions and custom helpers:
+
+- **Sprig Functions**: standard functions like `upper`, `lower`, `trim`, `list`, `dict`, `default`, etc.
+- **`required "message" <value>`**: Fails rendering if value is empty.
+- **`toYaml <value>`**: Converts complex objects to YAML string.
+- **`toJson <value>`**: Converts complex objects to JSON string.
+
+*Example:*
+```json
+{
+  "name": "{{ .Values.name | upper }}",
+  "config": {{ .Values.extraConfig | toJson }}
+}
+```

@@ -13,3 +13,8 @@ func (s *MockSDK) SubmitWorkflow(specJSON []byte) error {
 	fmt.Printf("[MockSDK] Payload check: %d bytes\n", len(specJSON))
 	return nil
 }
+
+func (s *MockSDK) RegisterFunction(specJSON []byte) error {
+	fmt.Printf("[MockSDK] Simulating function registration...\n")
+	return nil
+}

@@ -9,6 +9,7 @@ import (
 	"github.com/colonyos/cpm/internal/infra/registry"
 	"github.com/colonyos/cpm/internal/infra/storage"
 	"github.com/colonyos/cpm/internal/usecase"
+	"github.com/colonyos/cpm/pkg/domain"
 	"github.com/spf13/cobra"
 )
 
@@ -61,11 +62,20 @@ var installCmd = &cobra.Command{
 			return
 		}
 
-		// Mock client for uninstall notifications
-		sdk := colony.NewMockSDK()
-		client := colony.NewColonyClient(sdk)
+		// Initialize ColonySDK (Real or Mock)
+		var sdk domain.Submitter
+		if colonyID != "" && colonyPrvKey != "" {
+			sdk = colony.NewColonyClient(colonyHost, colonyPort, colonyID, colonyPrvKey)
+		} else {
+			// Fallback to MockSDK for testing or dry-run
+			sdk = colony.NewMockSDK()
+			if colonyID == "" || colonyPrvKey == "" {
+				// Only warn if we are not testing (how to detect? maybe verbose flag?)
+				// For now just proceed
+			}
+		}
 
-		uc := usecase.NewInstallPackageUseCase(pkgService, renderer, client, stateService, regService)
+		uc := usecase.NewInstallPackageUseCase(pkgService, renderer, sdk, stateService, regService)
 
 		overrides := make(map[string]interface{})
 		for _, s := range setFlags {

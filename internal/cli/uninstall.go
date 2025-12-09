@@ -33,9 +33,8 @@ var uninstallCmd = &cobra.Command{
 
 		// Mock client for uninstall notifications
 		sdk := colony.NewMockSDK()
-		client := colony.NewColonyClient(sdk)
 
-		uc := usecase.NewUninstallPackageUseCase(stateService, client)
+		uc := usecase.NewUninstallPackageUseCase(stateService, sdk)
 		err = uc.Execute(name)
 		if err != nil {
 			fmt.Printf("Error uninstalling package: %v\n", err)
