@@ -1,0 +1,4 @@
+﻿{
+    "name": "{{ .Values.resources.cpu }}",
+    "replicas": {{ .Values.replicas }}
+}

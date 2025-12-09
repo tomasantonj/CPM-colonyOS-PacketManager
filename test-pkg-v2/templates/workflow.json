@@ -1,0 +1,5 @@
+{
+    "colonyId": "{{ .Values.colonyId }}",
+    "name": "{{ .Values.name }}",
+    "replicas": "{{ .Values.replicas }}"
+}

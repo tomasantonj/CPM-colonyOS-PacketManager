@@ -1,0 +1,7 @@
+apiVersion: v1
+name: test-pkg-v2
+version: 0.1.0
+description: A ColonyOS package
+maintainers:
+  - name: Your Name
+dependencies: []
