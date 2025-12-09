@@ -4,5 +4,17 @@
     "version": "0.1.0",
     "colonyId": "test-colony",
     "installTime": "2025-12-09T15:37:05.8373499+01:00"
+  },
+  {
+    "name": "test-app",
+    "version": "0.1.0",
+    "colonyId": "test",
+    "installTime": "2025-12-09T15:51:15.981974+01:00"
+  },
+  {
+    "name": "my-app",
+    "version": "0.1.0",
+    "colonyId": "",
+    "installTime": "2025-12-09T16:10:44.5570066+01:00"
   }
 ]

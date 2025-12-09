@@ -1,0 +1,6 @@
+apiVersion: v1
+name: complex-pkg
+version: 1.0.0
+description: A package testing advanced templating
+maintainers:
+  - name: Tester

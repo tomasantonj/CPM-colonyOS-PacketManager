@@ -41,27 +41,48 @@ Compress a package directory into a distributable `.cpm` archive:
 This generates a file named `{name}-{version}.cpm` (e.g., `my-package-0.1.0.cpm`).
 
 ### 3. Install a Package
-Submit a package (either a directory or a `.cpm` archive) to ColonyOS:
+Submit a package to ColonyOS. You can install from a local file or from the configured registry.
 
+**From Local File:**
 ```bash
 ./cpm install my-package-0.1.0.cpm
+```
+
+**From Registry:**
+(Requires `CPM_HOME` to point to a valid registry location)
+```bash
+./cpm install my-package --version 0.1.0
 ```
 
 #### Overriding Values
 You can override default values in `values.yaml` using the `--set` flag:
 
 ```bash
-./cpm install my-package-0.1.0.cpm --set replicas=5 --set name="production-job"
+./cpm install my-package --version 0.1.0 --set replicas=5
 ```
 
-### 4. List Installed Packages
+### 4. Publish a Package
+Publish a package directory to the registry:
+
+```bash
+./cpm publish ./my-package
+```
+
+### 5. Search for Packages
+Search the registry for available packages:
+
+```bash
+./cpm search my-package
+```
+
+### 6. List Installed Packages
 View currently installed packages and their status:
 
 ```bash
 ./cpm list
 ```
 
-### 5. Uninstall a Package
+### 7. Uninstall a Package
 Remove a package from the local state (and ColonyOS):
 
 ```bash

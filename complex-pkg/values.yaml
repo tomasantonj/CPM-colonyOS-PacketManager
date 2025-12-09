@@ -1,0 +1,10 @@
+name: my-app
+environment: dev
+config:
+  logLevel: info
+  retries: 3
+  features:
+    - enableMetrics
+    - enableTracing
+secrets:
+  apiKey: "secret-value"

@@ -1,3 +1,4 @@
+name: test-app
 replicas: 1
 resources:
   cpu: 1000m

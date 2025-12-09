@@ -9,6 +9,7 @@ import (
 	"strings"
 	"text/template"
 
+	"github.com/Masterminds/sprig/v3"
 	"gopkg.in/yaml.v3"
 )
 
@@ -19,18 +20,33 @@ func NewGoTemplateEngine() *GoTemplateEngine {
 }
 
 // Render reads files from the package directory, and returns a map of filename -> rendered content
-// For MVP, if we return specific JSONs, the interface might need adjustment, but for now let's return a map or a joined byte slice.
-// The interface said: Render(packagePath string, values map[string]interface{}) ([]byte, error)
-// Let's assume it returns a JSON list or a multi-document stream?
-// Or maybe it renders to a specific output structure.
-// Let's implement it to find all .json files in templates/ and render them.
-
 func (e *GoTemplateEngine) Render(packagePath string, values map[string]interface{}) ([]byte, error) {
 	templatesDir := filepath.Join(packagePath, "templates")
 
 	// Check if directory exists
 	if _, err := os.Stat(templatesDir); os.IsNotExist(err) {
 		return nil, fmt.Errorf("templates directory not found in %s", packagePath)
+	}
+
+	// Define helper functions
+	funcMap := sprig.TxtFuncMap()
+
+	funcMap["toYaml"] = func(v interface{}) (string, error) {
+		data, err := yaml.Marshal(v)
+		if err != nil {
+			return "", err
+		}
+		return strings.TrimSuffix(string(data), "\n"), nil
+	}
+
+	funcMap["required"] = func(warn string, val interface{}) (interface{}, error) {
+		if val == nil {
+			return nil, fmt.Errorf("%s", warn)
+		}
+		if s, ok := val.(string); ok && s == "" {
+			return nil, fmt.Errorf("%s", warn)
+		}
+		return val, nil
 	}
 
 	var parsedTemplates []string
@@ -44,14 +60,26 @@ func (e *GoTemplateEngine) Render(packagePath string, values map[string]interfac
 			return nil
 		}
 
-		// Only process .json or .yaml files?
-		if !strings.HasSuffix(path, ".json") && !strings.HasSuffix(path, ".yaml") {
+		// Only process .json, .yaml, or .tpl files
+		if !strings.HasSuffix(path, ".json") && !strings.HasSuffix(path, ".yaml") && !strings.HasSuffix(path, ".tpl") {
 			return nil
 		}
 
 		// Parse the file content as a template
 		tmplName := filepath.Base(path)
-		tmpl, err := template.New(tmplName).Option("missingkey=error").ParseFiles(path)
+
+		// Read file content manually to handle BOM
+		content, err := os.ReadFile(path)
+		if err != nil {
+			return fmt.Errorf("failed to read template %s: %w", path, err)
+		}
+
+		// Strip BOM if present
+		const bom = "\xef\xbb\xbf"
+		sContent := string(content)
+		sContent = strings.TrimPrefix(sContent, bom)
+
+		tmpl, err := template.New(tmplName).Funcs(funcMap).Option("missingkey=error").Parse(sContent)
 		if err != nil {
 			return fmt.Errorf("failed to parse template %s: %w", path, err)
 		}
