@@ -1,7 +1,5 @@
 # CPM Frontend Hosting Specs
 
-# CPM Frontend Hosting Specs
-
 **Server Purpose:**
 This infrastructure hosts the **CPM Web Dashboard** (React / Nginx).
 *   **Role:** Visual User Interface.

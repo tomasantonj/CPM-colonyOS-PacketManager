@@ -1,7 +1,5 @@
 # ColonyOS Server Specs
 
-# ColonyOS Server Specs
-
 **Server Purpose:**
 This infrastructure hosts the **ColonyOS Core** (Go).
 *   **Role:** Execution Engine (Meta-Orchestrator).

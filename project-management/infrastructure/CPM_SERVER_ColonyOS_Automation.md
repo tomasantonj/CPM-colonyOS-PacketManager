@@ -1,7 +1,5 @@
 # ColonyOS Automation Specs
 
-# ColonyOS Automation Specs
-
 **Server Purpose:**
 This document defines the **Deployment Logic** (Ansible/Bash).
 *   **Role:** Configuration Management.
