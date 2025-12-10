@@ -16,15 +16,15 @@ This document defines the high-level architecture of the Colony Package Manager 
 ```mermaid
 graph TD
     subgraph "Client Side"
-        CLI[CPM CLI (Go)]
-        Web[CPM Dashboard (React/Docker)]
+        CLI["CPM CLI (Go)"]
+        Web["CPM Dashboard (React/Docker)"]
     end
 
     subgraph "Infrastructure Layer"
-        Registry[Registry API (C# / .NET 8)]
-        Core[ColonyOS Server (Go)]
-        DB[(PostgreSQL)]
-        S3[(Blob Storage)]
+        Registry["Registry API (C# / .NET 8)"]
+        Core["ColonyOS Server (Go)"]
+        DB[("PostgreSQL")]
+        S3[("Blob Storage")]
     end
 
     %% Flows
