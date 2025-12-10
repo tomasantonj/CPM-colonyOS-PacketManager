@@ -1,13 +1,37 @@
-# ColonyOS Package Manager (CPM)
+# Colony Package Manager (CPM)
 
-CPM is a package manager for [ColonyOS](https://github.com/colonyos/colonies), similar to Helm or npm, but designed for distributed computing workflows. It allows users to package, share, and deploy ColonyOS applications easily.
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
+![Status](https://img.shields.io/badge/status-beta-orange.svg)
+![Go Version](https://img.shields.io/badge/go-1.20%2B-blue)
 
-## Prerequisites
+**CPM** is the distributed package manager for [ColonyOS](https://github.com/colonyos/colonies). It streamlines the process of packaging, sharing, and deploying computational workflows across decentralized "Colonies". Think of it as **Helm for global computing**.
 
-- **Go**: Version 1.20 or later.
-- **ColonyOS**: A running ColonyOS instance (for submitting workflows).
+---
 
-## Installation
+## 🚀 Features
+
+- **📦 Package Management**: Initialize, pack, and install workflow applications.
+- **🏛 Registry**: Built-in support for publishing and searching packages from a local or remote registry.
+- **📝 Advanced Templating**: Dynamic configuration using Go templates and [Sprig](http://masterminds.github.io/sprig/) functions.
+- **🔐 Secure**: Authenticated workflow submission using Ed25519 digital signatures.
+- **🛠 Extensible**: Simple YAML manifests and JSON workflow definitions.
+
+---
+
+## 📚 Documentation
+
+Detailed documentation is available in the **[Wiki](Wiki/)**:
+
+- **[Package Structure](Wiki/package_structure.md)**: Understanding `colony.yaml`, `values.yaml`, and templates.
+- **[Registry & Storage](Wiki/registry.md)**: How packaging and versioning works.
+- **[Templating Engine](Wiki/template.md)**: Using variables, functions, and logic in your workflows.
+- **[Authentication](Wiki/authentication.md)**: Security details and signing protocol.
+
+---
+
+## ⚡ Quick Start
+
+### 1. Installation
 
 Build the binary from source:
 
@@ -15,149 +39,52 @@ Build the binary from source:
 go build -o cpm.exe ./cmd/cpm
 ```
 
-## Usage
+### 2. Initialize a Package
 
-CPM supports the following core commands:
-
-### 1. Initialize a Package
-Create a new package with the required directory structure:
+Create a new package skeleton:
 
 ```bash
-./cpm init my-package
+./cpm init my-app
 ```
 
-This creates:
-- `colony.yaml`: The package manifest.
-- `values.yaml`: Default configuration values.
-- `templates/`: Directory for template files (e.g., `workflow.json`).
+### 3. Deploy
 
-### 2. Pack a Package
-Compress a package directory into a distributable `.cpm` archive:
-
-```bash
-./cpm pack my-package
-```
-
-This generates a file named `{name}-{version}.cpm` (e.g., `my-package-0.1.0.cpm`).
-
-### 3. Install a Package
-Submit a package to ColonyOS. You can install from a local file or from the configured registry.
-
-**Authentication:**
-To submit workflows to a real ColonyOS server, you must provide credentials:
-```bash
-./cpm install my-package --colonyid <ID> --prvkey <HEX_KEY> --host <HOST> --port <PORT>
-```
-
-**From Local File:**
-```bash
-./cpm install my-package-0.1.0.cpm
-```
-
-**From Registry:**
-(Requires `CPM_HOME` to point to a valid registry location)
-```bash
-./cpm install my-package --version 0.1.0
-```
-
-#### Overriding Values
-You can override default values in `values.yaml` using the `--set` flag:
-
-```bash
-./cpm install my-package --version 0.1.0 --set replicas=5
-```
-
-### 4. Publish a Package
-Publish a package directory to the registry:
-
-```bash
-./cpm publish ./my-package
-```
-
-### 5. Search for Packages
-Search the registry for available packages:
-
-```bash
-./cpm search my-package
-```
-
-### 6. List Installed Packages
-View currently installed packages and their status:
-
-```bash
-./cpm list
-```
-
-### 7. Uninstall a Package
-Remove a package from the local state (and ColonyOS):
-
-```bash
-./cpm uninstall my-package
-```
-
-## Configuration
-
-### State Directory (`CPM_HOME`)
-By default, CPM stores state in `~/.cpm`. You can override this using the `CPM_HOME` environment variable.
-- **Registry**: stored in `$CPM_HOME/registry` (currently a local directory mock).
-- **Installed State**: stored in `$CPM_HOME/state.json`.
-
-**PowerShell:**
-```powershell
-$env:CPM_HOME=".\.cpm"
-./cpm install ...
-```
+Install the package to your Colony:
 
 **Bash:**
 ```bash
-export CPM_HOME=./.cpm
-./cpm install ...
+./cpm install my-app --colonyid "af67..." --prvkey "e5b9..."
 ```
 
-## Package Requirements
-
-A valid CPM package must contain:
-
-1.  **`colony.yaml`**: Manifest file defining metadata.
-    ```yaml
-    apiVersion: v1
-    name: my-package
-    version: 0.1.0
-    description: A sample package
-    maintainers:
-      - name: Your Name
-    ```
-
-2.  **`values.yaml`**: Default values available to templates.
-    ```yaml
-    replicas: 1
-    image: ubuntu:latest
-    ```
-
-3.  **`templates/`**: Directory containing Go templates (`.json`, `.yaml`, `.tpl`).
-    Files in this directory are rendered using the values from `values.yaml` (and CLI overrides).
-
-    *Example `templates/workflow.json`:*
-    ```json
-    {
-      "name": "{{ .Values.name }}",
-      "replicas": {{ .Values.replicas }}
-    }
-    ```
-
-## Advanced Templating
-
-CPM uses the Go template engine extended with **Sprig** functions and custom helpers:
-
-- **Sprig Functions**: standard functions like `upper`, `lower`, `trim`, `list`, `dict`, `default`, etc.
-- **`required "message" <value>`**: Fails rendering if value is empty.
-- **`toYaml <value>`**: Converts complex objects to YAML string.
-- **`toJson <value>`**: Converts complex objects to JSON string.
-
-*Example:*
-```json
-{
-  "name": "{{ .Values.name | upper }}",
-  "config": {{ .Values.extraConfig | toJson }}
-}
+**PowerShell:**
+```powershell
+.\cpm install my-app --colonyid "af67..." --prvkey "e5b9..."
 ```
+
+---
+
+## 🔧 Architecture
+
+CPM operates on a client-side architecture that interacts with a ColonyOS server.
+
+1.  **Resolution**: CPM looks up packages in the registry (`$CPM_HOME/registry`).
+2.  **Rendering**: It combines `templates/` with `values.yaml` (overridden by CLI flags) to generate the final workflow spec.
+3.  **Submission**: The spec is signed with your private key and submitted to the ColonyOS `/api/workflows` endpoint.
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+---
+
+## 📄 License
+
+Distributed under the MIT License. See `LICENSE` for more information.
