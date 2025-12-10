@@ -63,6 +63,19 @@ Install the package to your Colony:
 
 ---
 
+---
+## 🗺️ Roadmap
+
+We are actively working towards v1.0. Here is our high-level plan:
+
+*   **Phase 1: Stabilization** (Current) - Comprehensive testing, Error handling polish, and Security auditing.
+*   **Phase 2: Ecosystem** - Launching the **Remote Registry API** (C#), **Web Dashboard** (React), and `cpm publish` support.
+*   **Phase 3: Public Beta** - CI/CD Integration, VS Code Extension, and Community Launch.
+
+See the full [Release Roadmap](project-management/roadmap/release_roadmap.md) for details.
+
+---
+
 ## 🔧 Architecture
 
 CPM operates on a client-side architecture that interacts with a ColonyOS server.
