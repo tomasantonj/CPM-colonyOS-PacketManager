@@ -74,6 +74,19 @@ A new server component (or mode `cpm serve`) is needed to handle these requests.
 
 ## 4. Integration & Security
 
+#### Publish Flow
+```mermaid
+sequenceDiagram
+    participant User
+    participant CLI as "CPM CLI"
+    participant Reg as "Registry API"
+    User->>CLI: cpm publish
+    CLI->>CLI: Sign Artifact (Ed25519)
+    CLI->>Reg: POST /packages (Artifact + Sig)
+    Reg->>Reg: Verify Signature
+    Reg-->>CLI: 200 OK
+```
+
 ### A. Signing
 *   Ensure the Ed25519 signing mechanism validates not just the workflow content, but the *integrity* of the package being uploaded to the registry.
 

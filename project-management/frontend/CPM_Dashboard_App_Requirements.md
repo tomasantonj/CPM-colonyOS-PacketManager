@@ -27,6 +27,20 @@ The application must use the following modern stack to ensure performance, type 
 *   **Forms:** React Hook Form + Zod (Schema Validation)
 *   **Visualization:** React Flow (for DAG/Workflow rendering)
 
+#### Frontend Component Map
+```mermaid
+graph TD
+    App["App Root"] --> Layout["Main Layout"]
+    Layout --> Sidebar["Sidebar Nav"]
+    Layout --> Content["Page Content"]
+    Content --> Dashboard["Dashboard (Page)"]
+    Content --> Registry["Registry (Page)"]
+    Content --> Editor["Editor (Page)"]
+    Editor --> Canvas["Workflow Canvas"]
+    Editor --> ComponentPanel["Component Palette"]
+    Registry --> Grid["Package Grid"]
+```
+
 ---
 
 ## 2. Project Structure

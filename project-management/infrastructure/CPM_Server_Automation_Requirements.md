@@ -8,6 +8,20 @@ This document defines the **scripts and automation** (Ansible/Bash) needed to bo
 **Scope:** DevOps & Provisioning logic for the ColonyOS Server
 **Goal:** Automate the deployment and state configuration of the ColonyOS environment for CPM testing and production.
 
+#### Automation Workflow
+```mermaid
+graph LR
+    DevOps["DevOps Engineer"] -- "Run Playbook" --> Ansible["Ansible Control"]
+    Ansible -- "SSH" --> Target["Target Server"]
+    Target -- "Install" --> Docker["Docker Engine"]
+    Target -- "Start" --> Com["Docker Compose"]
+    Com --> PG[("Postgres")]
+    Com --> Redis[("Redis")]
+    Com --> Core["ColonyOS Core"]
+    Ansible -- "Run Script" --> Init["init_colony.sh"]
+    Init -- "GRPC" --> Core
+```
+
 ## 1. Provisioning Automation (The "How")
 We need a repeatable way to set up the server from a fresh OS install.
 

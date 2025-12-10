@@ -31,6 +31,16 @@ ColonyOS requires the following services to be running:
 ### 4. Network
 The server must be accessible from the machine running CPM.
 
+#### Network Topology
+```mermaid
+graph TD
+    Client["Client (CLI/Web)"] -- "HTTPS (443)" --> Nginx["Nginx Proxy"]
+    Nginx -- "gRPC (50051)" --> Col["ColonyOS Server"]
+    Nginx -- "HTTP (8080)" --> Col
+    Col -- "TCP (5432)" --> PG[("Postgres")]
+    Col -- "TCP (6379)" --> Redis[("Redis")]
+```
+
 *   **Ports:**
     *   `50051` (TCP): Default gRPC port for ColonyOS API.
     *   `8080` (TCP): Default HTTP port for REST API (if enabled).

@@ -9,6 +9,16 @@ This document outlines the requirements for the **new C#/.NET 8 Service**. It is
 **Tech Stack:** C# / .NET 8 (ASP.NET Core)
 **Goal:** Provide a robust, high-performance HTTP API for publishing, searching, and managing CPM packages.
 
+## Ecosystem Context
+
+```mermaid
+graph LR
+    CLI["CLI"] -- "JWT Output" --> API["Registry API"]
+    Dash["Dashboard"] -- "JWT Auth" --> API
+    API -- "Metadata" --> DB[("Postgres")]
+    API -- "Binaries" --> S3[("S3 Storage")]
+```
+
 ## 1. Architecture & Tech Stack
 
 Using C# and .NET 8 is an excellent choice for the API due to its strong typing, performance, and robust tooling.
