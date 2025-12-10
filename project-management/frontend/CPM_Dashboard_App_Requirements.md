@@ -1,5 +1,10 @@
 # CPM Dashboard App Requirements
 
+### Architecture Context
+**Component:** CPM Dashboard
+**Role:** Web UI
+This document specifies the requirements for the **React-based Frontend**. It communicates with the Registry API and provides a visual interface for the ecosystem.
+
 **Version:** 1.0 (Draft)
 **Target Audience:** Frontend Developers
 **Goal:** Build a premium, React-based web interface for Colony Package Manager (CPM) that allows users to discover packages and visually build workflows.
@@ -142,11 +147,32 @@ npx tailwindcss init -p
 ### Mocking API
 Since the Backend API might not be ready, developers should implement a Mock Service Worker (MSW) or a simple `api.mock.ts` layer to simulate:
 *   `GET /packages`: Returns a list of dummy packages.
-*   `GET /packages/:name`: Returns package details.
+    *   `GET /packages/:name`: Returns package details.
 
 ---
 
-## 6. Deliverables
+## 6. Hosting & Deployment
+
+The application will be packaged as a stateless Docker container.
+
+### A. Docker Specifications
+*   **Base Image:** `nginx:alpine` (Production)
+*   **Exposed Port:** `80` (Internal)
+
+### B. Environment Variables
+*   `REACT_APP_REGISTRY_URL`: URL of the CPM Registry API.
+*   `REACT_APP_COLONYOS_URL`: URL of the ColonyOS Server (delegated deployment).
+
+### C. Example Run Command
+```bash
+docker run -d \
+  --name cpm-dashboard \
+  -p 3000:80 \
+  -e REACT_APP_REGISTRY_URL="https://registry.example.com" \
+  cpm-dashboard:latest
+```
+
+## 7. Deliverables
 1.  **Source Code:** Git repository with clear commit history.
 2.  **Docker image:** A validated `Dockerfile` for serving the static build (Nginx).
 3.  **Storybook:** (Optional) If time permits, basic stories for core UI components.

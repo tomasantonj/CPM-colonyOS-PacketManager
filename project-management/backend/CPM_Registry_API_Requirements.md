@@ -1,5 +1,10 @@
 # CPM Registry API Requirements
 
+### Architecture Context
+**Component:** Registry API
+**Role:** Central Hub
+This document outlines the requirements for the **new C#/.NET 8 Service**. It is a distinct component from the CLI, responsible for remote storage and authentication.
+
 **Target:** Standalone Registry Server
 **Tech Stack:** C# / .NET 8 (ASP.NET Core)
 **Goal:** Provide a robust, high-performance HTTP API for publishing, searching, and managing CPM packages.

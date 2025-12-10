@@ -1,5 +1,10 @@
 # CPM Backend Requirements & Upgrade Plan
 
+### Architecture Context
+**Component:** CPM CLI / Go Core
+**Role:** Client & Local Logic
+This document specifies changes required in the **existing Go codebase**. It focuses on data structures (`pkg/domain`) and CLI commands (`cpm login`) needed to support the wider ecosystem.
+
 **Target:** Go Backend (CLI & Registry Server)
 **Version:** v1.0 Preparation
 

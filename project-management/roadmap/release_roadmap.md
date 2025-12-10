@@ -1,5 +1,9 @@
 # CPM Release Roadmap
 
+### Architecture Context
+This document defines the **Project Timeline & Milestones**. It governs *when* features from the Architecture map are implemented.
+**Related Components:** All.
+
 This document outlines the strategic plan to move Colony Package Manager (CPM) from its current Beta state to a public v1.0 release.
 
 ## Phase 1: Stabilization & Core Reliability

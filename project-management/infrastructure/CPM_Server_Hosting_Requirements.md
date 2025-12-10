@@ -1,5 +1,10 @@
 # ColonyOS Server Requirements
 
+### Architecture Context
+**Component:** ColonyOS Server (Hosting)
+**Role:** Execution Engine
+This document helps the Site Reliability Engineer (SRE) or DevOps team prepare the **bare metal or VM infrastructure** required to run the ColonyOS core.
+
 To release and test the Colony Package Manager (CPM) effectively, a live ColonyOS environment is required for integration testing. This document outlines the infrastructure and configuration requirements.
 
 ## Infrastructure

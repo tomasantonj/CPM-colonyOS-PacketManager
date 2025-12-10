@@ -1,5 +1,10 @@
 # Server Configuration & Automation Requirements
 
+### Architecture Context
+**Component:** ColonyOS Server (Automation)
+**Role:** DevOps / Provisions
+This document defines the **scripts and automation** (Ansible/Bash) needed to boostrap the infrastructure defined in `server_requirements.md` and configure the ColonyOS state.
+
 **Scope:** DevOps & Provisioning logic for the ColonyOS Server
 **Goal:** Automate the deployment and state configuration of the ColonyOS environment for CPM testing and production.
 
