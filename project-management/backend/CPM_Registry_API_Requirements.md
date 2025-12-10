@@ -70,29 +70,9 @@ The API needs to store the actual package binaries (`.tar.gz` files).
 
 This service should run as its own Docker container, separate from the ColonyOS core.
 
-### Dockerfile Requirements
-*   **Base Image:** `mcr.microsoft.com/dotnet/aspnet:8.0` (Alpine/Debian).
-*   **Build SDK:** `mcr.microsoft.com/dotnet/sdk:8.0`.
-*   **Port:** Expose `80` (Internal). Map to `5000` or handle via Nginx proxy.
+The detailed hosting specifications (Docker, AppSettings, Requirements) have been moved to the dedicated **Registry Hosting Spec**.
 
-### Configuration (`appsettings.json`)
-```json
-{
-  "ConnectionStrings": {
-    "DefaultConnection": "Host=postgres;Database=cpm_registry;Username=postgres;Password=..."
-  },
-  "Storage": {
-    "Type": "S3",
-    "BucketName": "cpm-packages",
-    "AccessKey": "...",
-    "SecretKey": "..."
-  },
-  "Jwt": {
-    "Key": "super-secret-key-...",
-    "Issuer": "cpm-registry"
-  }
-}
-```
+**See:** [CPM_SERVER_Registry_Requirements.md](../infrastructure/CPM_SERVER_Registry_Requirements.md)
 
 ## 6. Integration Checklist
 *   **CORS:** Must act as the bridge. Enable CORS for the Web Dashboard URL.

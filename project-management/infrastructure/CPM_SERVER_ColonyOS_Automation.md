@@ -12,7 +12,7 @@ This document defines the **Deployment Logic** (Ansible/Bash).
 **Tooling:** Ansible (Preferred) or Bash
 
 ## 1. Deployment Targets
-*   Bootstrap standard Linux VM (see `CPM_Server_Hosting_Requirements.md`).
+*   Bootstrap standard Linux VM (see `CPM_SERVER_ColonyOS_Requirements.md`).
 *   Install: `docker.io`, `postgresql-client`, `redis-tools`, `jq`.
 
 ## 2. Orchestration
