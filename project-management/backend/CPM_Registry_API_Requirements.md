@@ -42,11 +42,14 @@ The API will serve two main clients:
 *   `POST /api/auth/register`: Create a new user/maintainer.
 *   `POST /api/auth/login`: Exchange credentials for a Bearer Token (JWT).
 *   `GET /api/auth/me`: Get current user profile.
+*   `POST /api/auth/token`: Generate a long-lived API Key (for CI/CD).
 
 ### B. Packages
 *   `POST /api/packages`: Publish a new package version.
     *   *Payload:* Multipart form data containing the `tar.gz` archive and the `signature`.
     *   *Validation:* Server *must* verify the Ed25519 signature against the public key in the payload/manifest.
+*   `DELETE /api/packages/{name}/{version}`: Yank (deprecate) a specific version.
+    *   *Effect:* Package is hidden from search but remains downloadable for existing lockfiles.
 *   `GET /api/packages`: List packages (Pagination + Search support).
     *   *Query Params:* `search`, `tags`, `page`, `pageSize`.
 *   `GET /api/packages/{name}`: Get package details (aggregated versions).

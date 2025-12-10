@@ -11,6 +11,8 @@ This document outlines the strategic plan to move Colony Package Manager (CPM) f
 
 - [ ] **Infrastructure Setup (Prerequisite)**
     - Deploy a live ColonyOS server for true integration testing.
+    - **Infrastructure Spec:** [CPM_Server_Hosting_Requirements.md](../infrastructure/CPM_Server_Hosting_Requirements.md)
+    - **Automation Spec:** [CPM_Server_Automation_Requirements.md](../infrastructure/CPM_Server_Automation_Requirements.md)
     - **Requirements:**
         - **Compute:** Linux VM/Container (2 vCPU, 4GB RAM min).
         - **Database:** PostgreSQL 13+ (Persistent storage).
@@ -20,8 +22,9 @@ This document outlines the strategic plan to move Colony Package Manager (CPM) f
 - [ ] **Comprehensive Testing Suite**
     - Implement unit tests for all `internal/usecase` logic.
     - Create integration tests for the full `pack` -> `publish` -> `install` cycle against a live ColonyOS server.
-    - Add "chaos testing" for network failures and invalid configs.
+    - Add "Resiliency testing" (lighter weight chaos testing) for network failures and invalid configs.
 - [ ] **Error Handling & UX Polish**
+    - **Backend Upgrade Spec:** [CPM_Backend_Requirements.md](../backend/CPM_Backend_Requirements.md)
     - Replace generic Go errors with human-readable error messages and troubleshooting codes.
     - Add progress bars and spinners for long-running CLI operations (packaging, uploading).
     - Implement a `cpm doctor` command to diagnose environment issues (keys, connectivity).
@@ -34,16 +37,20 @@ This document outlines the strategic plan to move Colony Package Manager (CPM) f
 **Goal:** Expand from local/direct usage to a scalable, distributed ecosystem.
 
 - [ ] **Remote Registry Server**
+    - **Registry API Spec:** [CPM_Registry_API_Requirements.md](../backend/CPM_Registry_API_Requirements.md)
     - Develop a standalone HTTP registry server (or a ColonyOS plugin) to host packages.
     - Implement `cpm login` and `cpm logout` for registry authentication.
 - [ ] **Advanced Registry Features**
     - `cpm search` with filters (tags, authors).
     - `cpm info` to view package metadata without downloading.
     - Support for semantic versioning (install `@latest`, `@v1.2`).
+    - **Package Management:** Support for "yanking" (deprecating) broken versions.
+    - **API Keys:** Support for long-lived API keys for CI/CD authentication (e.g. `cpm publish --token ...`).
 - [ ] **Developer Experience (DX)**
-    - Create a VS Code extension for CPM (syntax highlighting for `colony.yaml`, snippets).
     - Add a "scaffold" feature to `cpm init` with multiple starter templates (e.g., Python, Node.js, Go workers).
 - [ ] **CPM Web Dashboard (React)**
+    - **Dashboard Spec:** [CPM_Dashboard_App_Requirements.md](../frontend/CPM_Dashboard_App_Requirements.md)
+    - **Hosting Spec:** [CPM_Frontend_Hosting_Requirements.md](../infrastructure/CPM_Frontend_Hosting_Requirements.md)
     - Develop a visual interface for creating `colony.yaml` templates (drag-and-drop workflow builder).
     - Implement an API gateway (or use Registry API) to fetch and publish templates.
     - **Note:** Depends on the *Remote Registry Server* for API access.
@@ -55,6 +62,8 @@ This document outlines the strategic plan to move Colony Package Manager (CPM) f
     - Launch a dedicated documentation site (e.g., using Docusaurus or MkDocs).
     - Create video tutorials: "Zero to deployed in 5 minutes".
     - Write a "Migration Guide" for users transitioning from raw JSON/YAML dispatching.
+    - **VS Code Extension:** Syntax highlighting and snippets for `colony.yaml` (Moved from Phase 2).
+    - **Telemetry:** Optional usage analytics to understand adoption.
 - [ ] **CI/CD Integration**
     - Release official GitHub Actions and GitLab CI components for installing CPM and deploying packages.
     - Automate CPM binary releases (cross-platform builds for Linux, Mac, Windows).

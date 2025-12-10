@@ -67,8 +67,13 @@ A new server component (or mode `cpm serve`) is needed to handle these requests.
 ### A. Authentication
 *   **Command:** `cpm login <registry-url>`
 *   **Logic:** Authenticate with the remote registry and store the returned JWT in `~/.cpm/config`.
+*   **CI/CD Support:** Support `CPM_API_TOKEN` env var or `cpm publish --token <key>` to bypass interactive login.
 
-### B. Validation
+### B. Package Management
+*   **Command:** `cpm yank <package> <version>`
+*   **Logic:** Mark a version as deprecated/yanked in the registry.
+
+### C. Validation
 *   **Command:** `cpm validate`
 *   **Logic:** Validate `colony.yaml` against the new `InputVariable` schema. Ensure provided `values.yaml` matches the defined inputs.
 

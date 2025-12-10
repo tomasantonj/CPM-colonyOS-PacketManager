@@ -167,24 +167,9 @@ Since the Backend API might not be ready, developers should implement a Mock Ser
 
 ## 6. Hosting & Deployment
 
-The application will be packaged as a stateless Docker container.
+The hosting details (Docker, Environment Variables, Nginx Config) have been moved to a dedicated specification for the DevOps team.
 
-### A. Docker Specifications
-*   **Base Image:** `nginx:alpine` (Production)
-*   **Exposed Port:** `80` (Internal)
-
-### B. Environment Variables
-*   `REACT_APP_REGISTRY_URL`: URL of the CPM Registry API.
-*   `REACT_APP_COLONYOS_URL`: URL of the ColonyOS Server (delegated deployment).
-
-### C. Example Run Command
-```bash
-docker run -d \
-  --name cpm-dashboard \
-  -p 3000:80 \
-  -e REACT_APP_REGISTRY_URL="https://registry.example.com" \
-  cpm-dashboard:latest
-```
+**See:** [CPM_Frontend_Hosting_Requirements.md](../infrastructure/CPM_Frontend_Hosting_Requirements.md)
 
 ## 7. Deliverables
 1.  **Source Code:** Git repository with clear commit history.

@@ -8,7 +8,7 @@ This document defines the high-level architecture of the Colony Package Manager 
 | :--- | :--- | :--- |
 | **CPM CLI** | Client / Go Core | `backend/CPM_Backend_Requirements.md` |
 | **Registry API** | Central Hub / C# | `backend/CPM_Registry_API_Requirements.md` |
-| **CPM Dashboard** | Web UI / React | `frontend/CPM_Dashboard_App_Requirements.md` |
+| **CPM Dashboard** | Web UI / React | `frontend/CPM_Dashboard_App_Requirements.md` <br> `infrastructure/CPM_Frontend_Hosting_Requirements.md` |
 | **ColonyOS Server** | Execution Engine | `infrastructure/CPM_Server_Hosting_Requirements.md` <br> `infrastructure/CPM_Server_Automation_Requirements.md` |
 
 ## System Topology & Data Flow
