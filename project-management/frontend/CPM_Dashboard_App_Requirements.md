@@ -92,7 +92,7 @@ src/
     *   List Input Variables (`spec.inputs`).
     *   "Use in Builder" button (Detailed in Section D).
 
-### D. Visual Template Builder (The "Killer Feature")
+### D. Visual Template Builder (Core Capability)
 *   **Goal:** Allow users to create valid `colony.yaml` files without writing YAML manually.
 *   **Two-Pane Layout:**
     *   *Left*: Canvas/Form view.

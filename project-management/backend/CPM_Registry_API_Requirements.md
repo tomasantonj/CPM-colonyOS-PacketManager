@@ -21,7 +21,7 @@ graph LR
 
 ## 1. Architecture & Tech Stack
 
-Using C# and .NET 8 is an excellent choice for the API due to its strong typing, performance, and robust tooling.
+Selection of C# and .NET 8 prioritizes strict type safety, high-throughput performance, and extensive tooling support for enterprise-grade API development.
 
 *   **Framework:** ASP.NET Core Web API (.NET 8).
 *   **Language:** C# 12.
