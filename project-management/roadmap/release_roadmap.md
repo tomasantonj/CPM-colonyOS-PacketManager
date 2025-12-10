@@ -11,8 +11,8 @@ This document outlines the strategic plan to move Colony Package Manager (CPM) f
 
 - [ ] **Infrastructure Setup (Prerequisite)**
     - Deploy a live ColonyOS server for true integration testing.
-    - **Infrastructure Spec:** [CPM_Server_Hosting_Requirements.md](../infrastructure/CPM_Server_Hosting_Requirements.md)
-    - **Automation Spec:** [CPM_Server_Automation_Requirements.md](../infrastructure/CPM_Server_Automation_Requirements.md)
+    - **Infrastructure Spec:** [CPM_SERVER_ColonyOS_Requirements.md](../infrastructure/CPM_SERVER_ColonyOS_Requirements.md)
+    - **Automation Spec:** [CPM_SERVER_ColonyOS_Automation.md](../infrastructure/CPM_SERVER_ColonyOS_Automation.md)
     - **Requirements:**
         - **Compute:** Linux VM/Container (2 vCPU, 4GB RAM min).
         - **Database:** PostgreSQL 13+ (Persistent storage).
@@ -50,7 +50,7 @@ This document outlines the strategic plan to move Colony Package Manager (CPM) f
     - Add a "scaffold" feature to `cpm init` with multiple starter templates (e.g., Python, Node.js, Go workers).
 - [ ] **CPM Web Dashboard (React)**
     - **Dashboard Spec:** [CPM_Dashboard_App_Requirements.md](../frontend/CPM_Dashboard_App_Requirements.md)
-    - **Hosting Spec:** [CPM_Frontend_Hosting_Requirements.md](../infrastructure/CPM_Frontend_Hosting_Requirements.md)
+    - **Hosting Spec:** [CPM_SERVER_Frontend_Requirements.md](../infrastructure/CPM_SERVER_Frontend_Requirements.md)
     - Develop a visual interface for creating `colony.yaml` templates (drag-and-drop workflow builder).
     - Implement an API gateway (or use Registry API) to fetch and publish templates.
     - **Note:** Depends on the *Remote Registry Server* for API access.

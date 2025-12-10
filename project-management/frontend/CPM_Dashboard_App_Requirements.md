@@ -169,7 +169,7 @@ Since the Backend API might not be ready, developers should implement a Mock Ser
 
 The hosting details (Docker, Environment Variables, Nginx Config) have been moved to a dedicated specification for the DevOps team.
 
-**See:** [CPM_Frontend_Hosting_Requirements.md](../infrastructure/CPM_Frontend_Hosting_Requirements.md)
+**See:** [CPM_SERVER_Frontend_Requirements.md](../infrastructure/CPM_SERVER_Frontend_Requirements.md)
 
 ## 7. Deliverables
 1.  **Source Code:** Git repository with clear commit history.
